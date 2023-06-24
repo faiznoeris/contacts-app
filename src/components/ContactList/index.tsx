@@ -4,10 +4,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
 
 import { RootState } from '../../store';
 
+import ContactTableContainer from './components/TableContainer';
 import ContactTableHead from './components/TableHead';
 import ContactTableBody from './components/TableBody';
 
@@ -22,27 +22,29 @@ const ContactList = (props: ContactListProps) => {
     );
 
     return (
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ overflow: 'auto', marginTop: '15px' }}>
             <Box sx={{ width: '100%', display: 'table', tableLayout: 'fixed' }}>
-                <TableContainer>
-                    <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
-                        {isListLoading ? (
-                            <Grid
-                                display='flex'
-                                justifyContent='center'
-                                alignItems='center'
-                                height='350px'
-                            >
-                                <CircularProgress />
-                            </Grid>
-                        ) : (
-                            <>
-                                <ContactTableHead />
-                                <ContactTableBody {...props} data={contacts} />
-                            </>
-                        )}
-                    </Table>
-                </TableContainer>
+                <ContactTableContainer>
+                    {isListLoading ? (
+                        <Grid
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
+                            height='350px'
+                        >
+                            <CircularProgress />
+                        </Grid>
+                    ) : (
+                        <Table
+                            stickyHeader
+                            aria-labelledby='tableTitle'
+                            sx={{ minWidth: 750 }}
+                        >
+                            <ContactTableHead />
+                            <ContactTableBody {...props} data={contacts} />
+                        </Table>
+                    )}
+                </ContactTableContainer>
             </Box>
         </Box>
     );

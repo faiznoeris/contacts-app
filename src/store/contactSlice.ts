@@ -18,6 +18,7 @@ export interface ContactState {
     isDeleteLoading: boolean;
     isAlertOpen: boolean;
     alertMessage: string;
+    alertType: 'error' | 'info' | 'success' | 'warning';
 }
 
 export const CONTACT_INITIAL_STATE: ContactState = {
@@ -34,7 +35,8 @@ export const CONTACT_INITIAL_STATE: ContactState = {
     isUpdateLoading: false,
     isDeleteLoading: false,
     isAlertOpen: false,
-    alertMessage: ''
+    alertMessage: '',
+    alertType: 'error',
 };
 
 export const fetchContacts = createAsyncThunk('get-contacts', async () => {
@@ -84,12 +86,14 @@ export const contactSlice = createSlice({
         openAlert: (state, action) => ({
             ...state,
             isAlertOpen: true,
-            alertMessage: action.payload,
+            alertMessage: action.payload.message,
+            alertType: action.payload.type,
         }),
         closeAlert: state => ({
             ...state,
             isAlertOpen: false,
             alertMessage: '',
+            alertType: 'error',
         }),
     },
     extraReducers: builder => {

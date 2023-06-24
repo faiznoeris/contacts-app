@@ -31,16 +31,22 @@ const ContactDeleteDialog = (props: ContactDeleteDialogProps) => {
     const handleDelete = useCallback(() => {
         if (id) {
             dispatch(deleteContact(id)).then(resp => {
+                let alertObj = {
+                    message: 'Data has been deleted successfully',
+                    type: 'success',
+                };
                 handleClose();
                 dispatch(fetchContacts);
-                if ((resp as DispatchResponse).error.message) {
-                    dispatch(
-                        openAlert((resp as DispatchResponse).error.message)
-                    );
-                    setTimeout(() => {
-                        dispatch(closeAlert());
-                    }, ALERT_DURATION);
+                if ((resp as DispatchResponse).error) {
+                    alertObj = {
+                        message: (resp as DispatchResponse).error.message || '',
+                        type: 'error',
+                    };
                 }
+                dispatch(openAlert(alertObj));
+                setTimeout(() => {
+                    dispatch(closeAlert());
+                }, ALERT_DURATION);
             });
         }
     }, [dispatch, handleClose, id]);

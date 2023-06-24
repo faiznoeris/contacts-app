@@ -83,6 +83,10 @@ const ContactForm = (props: ContactFormProps) => {
 
     const handleFinish = useCallback(
         (values: FormValues) => {
+            let alertObj = {
+                message: 'Data has been updated successfully',
+                type: 'success',
+            };
             if (id) {
                 dispatch(
                     updateContact({
@@ -98,17 +102,22 @@ const ContactForm = (props: ContactFormProps) => {
                     reset();
                     handleClose();
                     dispatch(fetchContacts());
-                    if ((resp as DispatchResponse).error.message) {
-                        dispatch(
-                            openAlert((resp as DispatchResponse).error.message)
-                        );
-                        setTimeout(() => {
-                            dispatch(closeAlert());
-                        }, ALERT_DURATION);
+                    if ((resp as DispatchResponse).error) {
+                        alertObj = {
+                            message:
+                                (resp as DispatchResponse).error.message || '',
+                            type: 'error',
+                        };
                     }
+                    dispatch(openAlert(alertObj));
+                    setTimeout(() => {
+                        dispatch(closeAlert());
+                    }, ALERT_DURATION);
                 });
                 return;
             }
+
+            alertObj.message = 'Data has been created successfully'
             dispatch(
                 createContact({
                     firstName: values.firstName,
@@ -120,14 +129,16 @@ const ContactForm = (props: ContactFormProps) => {
                 reset();
                 handleClose();
                 dispatch(fetchContacts());
-                if ((resp as DispatchResponse).error.message) {
-                    dispatch(
-                        openAlert((resp as DispatchResponse).error.message)
-                    );
-                    setTimeout(() => {
-                        dispatch(closeAlert());
-                    }, ALERT_DURATION);
+                if ((resp as DispatchResponse).error) {
+                    alertObj = {
+                        message: (resp as DispatchResponse).error.message || '',
+                        type: 'error',
+                    };
                 }
+                dispatch(openAlert(alertObj));
+                setTimeout(() => {
+                    dispatch(closeAlert());
+                }, ALERT_DURATION);
             });
         },
         [dispatch, id, reset, handleClose]

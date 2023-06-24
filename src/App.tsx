@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Grow from '@mui/material/Grow';
+import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -20,7 +21,7 @@ import { fetchContacts, closeAlert } from './store/contactSlice';
 import { AppDispatch, RootState } from './store';
 
 const HomePage = () => {
-    const { isAlertOpen, alertMessage } = useSelector(
+    const { isAlertOpen, alertMessage, alertType } = useSelector(
         (state: RootState) => state.contact
     );
     const dispatch = useDispatch<AppDispatch>();
@@ -72,12 +73,31 @@ const HomePage = () => {
             }}
         >
             <Navbar />
-            <Box padding={8}>
-                <Grid mt={10} display='flex' justifyContent='space-between'>
-                    <Grid>
+            <Box
+                marginBottom={{ xs: '55px' }}
+                padding={{ xs: '64px 32px', sm: 8 }}
+            >
+                <Grid
+                    mt={10}
+                    display='flex'
+                    justifyContent='space-between'
+                    container
+                >
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        textAlign={{ xs: 'center', sm: 'left' }}
+                    >
                         <Typography variant='h3'>Contact List</Typography>
                     </Grid>
-                    <Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        textAlign={{ sm: 'end' }}
+                        display={{ xs: 'none', sm: 'block' }}
+                    >
                         <Button
                             data-testid='add-new-contact-btn'
                             variant='contained'
@@ -101,7 +121,7 @@ const HomePage = () => {
             />
             <Grow in={isAlertOpen} timeout='auto'>
                 <Alert
-                    severity='error'
+                    severity={alertType}
                     action={
                         <IconButton
                             aria-label='close'
@@ -122,6 +142,19 @@ const HomePage = () => {
                     {alertMessage}
                 </Alert>
             </Grow>
+            <Fab
+                color='primary'
+                size='large'
+                sx={{
+                    display: { sm: 'none' },
+                    position: 'fixed',
+                    bottom: 55,
+                    right: 55,
+                }}
+                onClick={handleOpen(null)}
+            >
+                <AddIcon />
+            </Fab>
         </Box>
     );
 };
