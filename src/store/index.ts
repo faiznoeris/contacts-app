@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import contactReducer from './contactSlice';
 
 const store = configureStore({
-    reducer: {},
+    reducer: {
+        contact: contactReducer,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
