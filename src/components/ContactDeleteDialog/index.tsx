@@ -9,7 +9,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { AppDispatch } from '../../store';
-import { deleteContact, fetchContacts } from '../../store/contactSlice';
+import {
+    deleteContact,
+    fetchContacts,
+    openAlert,
+    closeAlert,
+} from '../../store/contactSlice';
+import { ALERT_DURATION } from '../../constants/alert';
+import DispatchResponse from '../../types/DispatchResponse';
 
 interface ContactDeleteDialogProps {
     open: boolean;
@@ -23,9 +30,17 @@ const ContactDeleteDialog = (props: ContactDeleteDialogProps) => {
 
     const handleDelete = useCallback(() => {
         if (id) {
-            dispatch(deleteContact(id)).then(() => {
+            dispatch(deleteContact(id)).then(resp => {
                 handleClose();
                 dispatch(fetchContacts);
+                if ((resp as DispatchResponse).error.message) {
+                    dispatch(
+                        openAlert((resp as DispatchResponse).error.message)
+                    );
+                    setTimeout(() => {
+                        dispatch(closeAlert());
+                    }, ALERT_DURATION);
+                }
             });
         }
     }, [dispatch, handleClose, id]);

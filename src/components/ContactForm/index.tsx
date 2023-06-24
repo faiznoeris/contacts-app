@@ -19,8 +19,12 @@ import {
     fetchContacts,
     createContact,
     updateContact,
+    openAlert,
+    closeAlert,
 } from '../../store/contactSlice';
+import { ALERT_DURATION } from '../../constants/alert';
 import contactSchema from '../../schemas/contact';
+import DispatchResponse from '../../types/DispatchResponse';
 
 interface ContactFormProps {
     id: string | null;
@@ -90,10 +94,18 @@ const ContactForm = (props: ContactFormProps) => {
                             photo: values.photo,
                         },
                     })
-                ).then(() => {
+                ).then(resp => {
                     reset();
                     handleClose();
                     dispatch(fetchContacts());
+                    if ((resp as DispatchResponse).error.message) {
+                        dispatch(
+                            openAlert((resp as DispatchResponse).error.message)
+                        );
+                        setTimeout(() => {
+                            dispatch(closeAlert());
+                        }, ALERT_DURATION);
+                    }
                 });
                 return;
             }
@@ -104,10 +116,18 @@ const ContactForm = (props: ContactFormProps) => {
                     age: Number(values.age),
                     photo: values.photo,
                 })
-            ).then(() => {
+            ).then(resp => {
                 reset();
                 handleClose();
                 dispatch(fetchContacts());
+                if ((resp as DispatchResponse).error.message) {
+                    dispatch(
+                        openAlert((resp as DispatchResponse).error.message)
+                    );
+                    setTimeout(() => {
+                        dispatch(closeAlert());
+                    }, ALERT_DURATION);
+                }
             });
         },
         [dispatch, id, reset, handleClose]

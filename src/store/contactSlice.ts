@@ -16,6 +16,8 @@ export interface ContactState {
     isCreateLoading: boolean;
     isUpdateLoading: boolean;
     isDeleteLoading: boolean;
+    isAlertOpen: boolean;
+    alertMessage: string;
 }
 
 export const CONTACT_INITIAL_STATE: ContactState = {
@@ -31,6 +33,8 @@ export const CONTACT_INITIAL_STATE: ContactState = {
     isCreateLoading: false,
     isUpdateLoading: false,
     isDeleteLoading: false,
+    isAlertOpen: false,
+    alertMessage: ''
 };
 
 export const fetchContacts = createAsyncThunk('get-contacts', async () => {
@@ -76,7 +80,18 @@ export const deleteContact = createAsyncThunk(
 export const contactSlice = createSlice({
     name: 'contact',
     initialState: CONTACT_INITIAL_STATE,
-    reducers: {},
+    reducers: {
+        openAlert: (state, action) => ({
+            ...state,
+            isAlertOpen: true,
+            alertMessage: action.payload,
+        }),
+        closeAlert: state => ({
+            ...state,
+            isAlertOpen: false,
+            alertMessage: '',
+        }),
+    },
     extraReducers: builder => {
         // get list
         builder.addCase(fetchContacts.pending, state => ({
@@ -152,4 +167,5 @@ export const contactSlice = createSlice({
     },
 });
 
+export const { openAlert, closeAlert } = contactSlice.actions;
 export default contactSlice.reducer;
