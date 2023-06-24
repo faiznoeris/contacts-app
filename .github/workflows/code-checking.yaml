@@ -1,0 +1,20 @@
+name: Run Unit Test
+
+on:
+  push:
+    branches: 'master'
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Unit Tests
+        run: npm run coverage

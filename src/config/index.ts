@@ -1,6 +1,9 @@
+// @: https://stackoverflow.com/a/74882007
+const { VITE_BACKEND_URL: BE_URL } = import.meta.env;
+
 const config = {
     api: {
-        url: import.meta.env.VITE_BACKEND_URL,
+        url: BE_URL,
     },
 };
 

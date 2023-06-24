@@ -18,7 +18,7 @@ export interface ContactState {
     isDeleteLoading: boolean;
 }
 
-const initialState: ContactState = {
+export const CONTACT_INITIAL_STATE: ContactState = {
     contact: {
         firstName: '',
         lastName: '',
@@ -75,7 +75,7 @@ export const deleteContact = createAsyncThunk(
 
 export const contactSlice = createSlice({
     name: 'contact',
-    initialState,
+    initialState: CONTACT_INITIAL_STATE,
     reducers: {},
     extraReducers: builder => {
         // get list

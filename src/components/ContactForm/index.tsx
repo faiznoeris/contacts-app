@@ -140,6 +140,7 @@ const ContactForm = (props: ContactFormProps) => {
                                     >
                                         <FormLabel>Photo</FormLabel>
                                         <Input
+                                            data-testid='photo-input'
                                             register={register}
                                             name='photo'
                                             helperText={errors?.photo?.message}
@@ -165,6 +166,7 @@ const ContactForm = (props: ContactFormProps) => {
                             }}
                         >
                             <Input
+                                data-testid='first-name-input'
                                 register={register}
                                 name='firstName'
                                 helperText={errors?.firstName?.message}
@@ -187,6 +189,7 @@ const ContactForm = (props: ContactFormProps) => {
                             }}
                         >
                             <Input
+                                data-testid='last-name-input'
                                 register={register}
                                 name='lastName'
                                 helperText={errors?.lastName?.message}
@@ -209,6 +212,7 @@ const ContactForm = (props: ContactFormProps) => {
                             }}
                         >
                             <Input
+                                data-testid='age-input'
                                 register={register}
                                 name='age'
                                 helperText={errors?.age?.message}
@@ -227,6 +231,7 @@ const ContactForm = (props: ContactFormProps) => {
                                 Cancel
                             </Button>
                             <Button
+                                data-testid='save-btn'
                                 type='submit'
                                 disabled={
                                     isSubmitBtnDisabled ||

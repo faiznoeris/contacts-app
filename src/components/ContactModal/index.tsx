@@ -16,6 +16,7 @@ const ContactModal = (props: ContactModalProps) => {
     const { handleClose, open, id } = props;
     return (
         <Modal
+            data-testid='contact-modal'
             open={open}
             onClose={handleClose}
             aria-labelledby='modal-modal-title'

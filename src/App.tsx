@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,10 +13,9 @@ import ContactModal from './components/ContactModal';
 import ContactDeleteDialog from './components/ContactDeleteDialog';
 
 import { fetchContacts } from './store/contactSlice';
-import { AppDispatch, RootState } from './store';
+import { AppDispatch } from './store';
 
 const HomePage = () => {
-    const data = useSelector((state: RootState) => state.contact);
     const dispatch = useDispatch<AppDispatch>();
 
     const [open, setOpen] = useState(false);
@@ -60,6 +59,7 @@ const HomePage = () => {
                     </Grid>
                     <Grid>
                         <Button
+                            data-testid='add-new-contact-btn'
                             variant='contained'
                             onClick={handleOpen(null)}
                             startIcon={<AddIcon />}
@@ -69,17 +69,11 @@ const HomePage = () => {
                     </Grid>
                 </Grid>
                 <ContactList
-                    data={data.contacts}
                     handleOpen={handleOpen}
                     handleOpenDelete={handleOpenDelete}
-                    isLoading={data?.isListLoading}
                 />
             </Box>
-            <ContactModal
-                handleClose={handleClose}
-                open={open}
-                id={id}
-            />
+            <ContactModal handleClose={handleClose} open={open} id={id} />
             <ContactDeleteDialog
                 handleClose={handleCloseDelete}
                 open={openDelete}

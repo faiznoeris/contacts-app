@@ -17,10 +17,12 @@ interface ContactListProps {
 
 const ContactTableBody = (props: ContactListProps) => {
     const { data, handleOpen, handleOpenDelete } = props;
+    
     return (
         <TableBody>
             {(data || []).map((row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
+                const labelId = `table-row-${index}`;
+                const updateBtnId = `update-button-row-${index}`;
 
                 return (
                     <TableRow key={labelId} hover tabIndex={-1}>
@@ -46,6 +48,7 @@ const ContactTableBody = (props: ContactListProps) => {
                                 justifyContent='end'
                             >
                                 <Button
+                                    data-testid={updateBtnId}
                                     onClick={handleOpen(row.id)}
                                     sx={{ color: palette.text.link }}
                                 >
