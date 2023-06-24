@@ -22,10 +22,12 @@ const ContactDeleteDialog = (props: ContactDeleteDialogProps) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleDelete = useCallback(() => {
-        dispatch(deleteContact(id)).then(() => {
-            handleClose();
-            dispatch(fetchContacts);
-        });
+        if (id) {
+            dispatch(deleteContact(id)).then(() => {
+                handleClose();
+                dispatch(fetchContacts);
+            });
+        }
     }, [dispatch, handleClose, id]);
 
     return (

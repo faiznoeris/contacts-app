@@ -6,11 +6,11 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
-import { Contact } from '../../../types/Contact';
+import { ContactWithID } from '../../../types/Contact';
 import palette from '../../../theme/palette';
 
 interface ContactListProps {
-    data: Contact[];
+    data: ContactWithID[];
     handleOpen: (id: string) => () => void;
     handleOpenDelete: (id: string) => () => void;
 }

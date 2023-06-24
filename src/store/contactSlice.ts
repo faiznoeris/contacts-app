@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import ContactService from '../services/ContactService';
-import { Contact } from '../types/Contact';
+import { Contact, ContactWithID } from '../types/Contact';
 
 type UpdateContact = {
     id: string;
@@ -10,7 +10,7 @@ type UpdateContact = {
 
 export interface ContactState {
     contact: Contact;
-    contacts: Contact[];
+    contacts: ContactWithID[];
     isListLoading: boolean;
     isSingleLoading: boolean;
     isCreateLoading: boolean;

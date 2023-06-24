@@ -4,13 +4,13 @@ import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 
-import { Contact } from '../../types/Contact';
+import { ContactWithID } from '../../types/Contact';
 
 import ContactTableHead from './components/TableHead';
 import ContactTableBody from './components/TableBody';
 
 interface ContactListProps {
-    data: Contact[];
+    data: ContactWithID[];
     handleOpen: (id: string) => () => void;
     handleOpenDelete: (id: string) => () => void;
     isLoading: boolean;

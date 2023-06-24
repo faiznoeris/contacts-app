@@ -5,6 +5,10 @@ export type Contact = {
     photo: string;
 };
 
+export type ContactWithID = Contact & {
+    id: string
+};
+
 export type ContactResponse = {
     message: string;
     data: Contact[];

@@ -3,8 +3,9 @@ const components = {
         styleOverrides: {
             root: {
                 height: 'fit-content',
-                textTransform: 'unset',
-                borderRadius: '7px'
+                // @: https://github.com/mui/material-ui/issues/16307#issuecomment-902344903
+                textTransform: 'unset' as const,
+                borderRadius: '7px',
             },
         },
     },
@@ -12,7 +13,7 @@ const components = {
         styleOverrides: {
             root: {
                 fontWeight: 500,
-                marginBottom: '5px'
+                marginBottom: '5px',
             },
         },
     },
