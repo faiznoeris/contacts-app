@@ -2,11 +2,16 @@ import { styled } from '@mui/material';
 import MUIBox from '@mui/material/Box';
 
 const ContentWrapper = styled(MUIBox)(({ theme }) => ({
+    [theme.breakpoints.only('xs')]: {
+        width: '60%',
+    },
+    [theme.breakpoints.up('sm')]: {
+        width: '400px',
+    },
     position: 'absolute' as const,
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '60%',
     overflowY: 'auto',
     backgroundColor: theme.palette.background.paper,
     borderRadius: '10px',

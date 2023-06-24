@@ -78,7 +78,7 @@ const HomePage = () => {
                 padding={{ xs: '64px 32px', sm: 8 }}
             >
                 <Grid
-                    mt={10}
+                    mt={{ xs: 5, sm: 10 }}
                     display='flex'
                     justifyContent='space-between'
                     container
